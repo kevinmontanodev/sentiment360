@@ -1,0 +1,21 @@
+
+# Data processing
+pandas
+dask[dataframe]
+pyspark
+pyarrow
+
+# Storage
+pymongo
+boto3
+
+# Machine Learning
+scikit-learn
+
+# API
+fastapi
+uvicorn[standard]
+
+# Testing
+pytest
+httpx
