@@ -113,6 +113,28 @@ La colección de producción predeterminada es `reviews`. El nombre de la base d
 
 Consulta [docs/ingesta-mongodb.md](docs/ingesta-mongodb.md) para obtener los detalles técnicos y los resultados de validación.
 
+## Procesamiento de reseñas con Dask
+
+Después de la ingesta, limpia las reseñas de MongoDB y genera el dataset Parquet:
+
+```bash
+python -m src.procesamiento.procesar_resenas
+```
+
+La salida se guarda en `data/processed/reviews/`, junto con `_resumen.json`, que
+indica los registros leídos, conservados y rechazados. El proceso conserva los
+identificadores y las etiquetas, valida el Parquet y no modifica MongoDB.
+
+Para una ejecución limitada y separada:
+
+```bash
+python -m src.procesamiento.procesar_resenas --limit 10 --output data/processed/reviews_prueba
+```
+
+Usa un directorio nuevo en cada ejecución. Consulta
+[docs/procesamiento-dask.md](docs/procesamiento-dask.md) para las reglas de limpieza,
+las opciones y los resultados de las pruebas.
+
 ## Pruebas
 
 Ejecuta las pruebas automatizadas desde la raíz del proyecto:
@@ -121,7 +143,7 @@ Ejecuta las pruebas automatizadas desde la raíz del proyecto:
 pytest -v
 ```
 
-Las pruebas cubren la validación de reseñas, el repositorio MongoDB y el servicio de ingesta. Se utiliza `mongomock` para simular operaciones de MongoDB en las pruebas unitarias.
+Las pruebas cubren la validación de reseñas, el repositorio MongoDB, el servicio de ingesta y el procesamiento con Dask hasta la lectura del Parquet. Se utiliza `mongomock` para simular operaciones de MongoDB en las pruebas unitarias.
 
 ## Reproducibilidad
 
