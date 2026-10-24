@@ -45,8 +45,8 @@ Se reutiliza `ReviewValidator`, el mismo validador de la ingesta:
 - Se conservan el identificador y las dos etiquetas originales. La salida solo
   incluye los cuatro campos del esquema; se omite el `_id` interno de MongoDB.
 
-Por ejemplo, `  ¡NO está mal!\nMuy útil 😊  ` queda como
-`¡NO está mal! Muy útil 😊`.
+Por ejemplo, `  ¡NO está mal!\nMuy útil  ` queda como
+`¡NO está mal! Muy útil`.
 
 No se deduplican registros en esta etapa: la ingesta ya mantiene un índice único
 por `id`. Cada registro inválido se cuenta una sola vez como rechazado.

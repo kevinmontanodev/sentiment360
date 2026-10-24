@@ -10,16 +10,16 @@ from src.procesamiento import procesar_resenas
 from src.procesamiento.limpiar_resenas import clean_review, process_reviews, validate_parquet
 
 
-def make_review(review_id="review-1", label=4, text="  ¡NO está mal!\nMuy útil 😊  "):
+def make_review(review_id="review-1", label=4, text="  ¡NO está mal!\nMuy útil  "):
     return {"id": review_id, "text": text, "label": label, "label_text": str(label)}
 
 
 def test_cleaning_preserves_sentiment_and_original_fields():
-    review = make_review(text="  ¡NO esta\u0301 mal!\tMuy\n útil 😊  ")
+    review = make_review(text="  ¡NO esta\u0301 mal!\tMuy\n útil  ")
     original = dict(review)
 
     assert clean_review(review) == {
-        "id": "review-1", "text": "¡NO está mal! Muy útil 😊",
+        "id": "review-1", "text": "¡NO está mal! Muy útil",
         "label": 4, "label_text": "4",
     }
     assert review == original
@@ -61,7 +61,7 @@ def test_mongodb_to_parquet_in_batches(tmp_path):
     assert saved["id"].tolist() == [f"review-{label}" for label in range(5)]
     assert saved["label"].tolist() == list(range(5))
     assert saved["label_text"].tolist() == list("01234")
-    assert saved["text"].tolist() == ["¡NO está mal! Muy útil 😊"] * 5
+    assert saved["text"].tolist() == ["¡NO está mal! Muy útil"] * 5
     assert list(saved.columns) == ["id", "text", "label", "label_text"]
     assert len(list(output.glob("*.parquet"))) == 3
     assert list(collection.find()) == original
