@@ -1,4 +1,4 @@
-from collections.abc import Mapping, Sequence
+from collections.abc import Iterator, Mapping, Sequence
 from typing import Any
 
 from pymongo import ASCENDING, MongoClient
@@ -100,6 +100,19 @@ class MongoReviewRepository:
     def count_reviews(self) -> int:
         """Devuelve el total de reseñas almacenadas."""
         return self._collection.count_documents({})
+
+    def iter_reviews(self, batch_size: int = 5000) -> Iterator[dict[str, Any]]:
+        """Lee las reseñas originales sin cargar la colección en memoria."""
+        if batch_size <= 0:
+            raise ValueError("El tamaño del lote debe ser mayor que cero.")
+
+        cursor = self._collection.find(
+            {}, {"_id": 0, "id": 1, "text": 1, "label": 1, "label_text": 1}
+        ).batch_size(batch_size)
+        try:
+            yield from cursor
+        finally:
+            cursor.close()
 
     def close(self) -> None:
         """Cierra la conexión si el repositorio la creó."""
