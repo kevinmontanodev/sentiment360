@@ -1,5 +1,5 @@
 # Data processing
-pandas
+pandas<3.0.0
 dask[dataframe]
 pyspark
 pyarrow

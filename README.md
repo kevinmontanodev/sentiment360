@@ -224,6 +224,14 @@ Usa un directorio nuevo en cada ejecución. Consulta
 [docs/procesamiento-dask.md](docs/procesamiento-dask.md) para las reglas de limpieza,
 las opciones y los resultados de las pruebas.
 
+## Procesamiento de reseñas con PySpark
+
+Para procesar el dataset Parquet en modo local con PySpark y verificar la consistencia de las agregaciones frente a Dask:
+
+```bash
+python -m src.procesamiento.procesar_pyspark
+```
+
 ## Pruebas
 
 Ejecuta las pruebas automatizadas desde la raíz del proyecto:
