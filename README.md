@@ -129,6 +129,10 @@ Los datos completos y otros artefactos generados durante la ejecución se manten
 
 ## Instalación y configuración
 
+Sentiment360 documenta la ejecución de sus componentes por etapas para facilitar la comprensión del flujo de procesamiento, la validación de los resultados intermedios y la identificación de errores en cada tecnología utilizada. Esta organización permite evaluar cada componente de forma independiente mientras se completa la integración del pipeline.
+
+Como mejora futura, se contempla incorporar un comando de ejecución simplificada que coordine las etapas disponibles y reduzca la intervención manual. Esta funcionalidad se implementará cuando las dependencias y los componentes del flujo estén integrados y validados.
+
 Clona el repositorio y entra en su directorio:
 
 ```bash
@@ -226,30 +230,63 @@ las opciones y los resultados de las pruebas.
 
 ## Procesamiento de reseñas con PySpark
 
-Para procesar el dataset Parquet en modo local con PySpark y verificar la consistencia de las agregaciones frente a Dask:
+Para procesar el dataset Parquet en modo local con PySpark y verificar la consistencia de las agregaciones frente a Dask, ejecuta:
 
 ```bash
 python -m src.procesamiento.procesar_pyspark
 ```
 
+Consulta la documentación de [Procesamiento con PySpark](docs/proceamiento-pyspark.md) para conocer el procedimiento, las transformaciones aplicadas y la comparación de resultados con Dask.
+
+
 ## Almacenamiento de artefactos con MinIO
 
-MinIO ofrece un almacenamiento de objetos local compatible con S3. Configura las
-variables `MINIO_*` y `S3_*` en `.env` según `.env.example` e inicia los servicios:
+MinIO proporciona almacenamiento de objetos local compatible con la API de Amazon S3. Para iniciar el servicio, configura las variables `MINIO_*` y `S3_*` en `.env` tomando como referencia `.env.example` y ejecuta:
 
 ```bash
 docker compose -f compose.yaml up -d
 ```
 
-Sube el Parquet generado por el procesamiento, recupéralo y verifica que coincida:
+### Generar y transferir el artefacto
+
+Antes de ejecutar la transferencia, genera el conjunto de datos procesado mediante Dask. Para reproducir la prueba documentada de 1000 reseñas:
+
+```bash
+python -m src.ingesta.cargar_dataset --limit 1000 --collection reviews_muestra
+
+python -m src.procesamiento.procesar_resenas --collection reviews_muestra --output data/processed/reviews_muestra
+```
+
+Una vez generado el directorio Parquet, súbelo a MinIO, recupéralo y verifica su integridad:
 
 ```bash
 python -m src.almacenamiento.transferir_artefacto --source data/processed/reviews_muestra --destination data/recovered/reviews_muestra --prefix reviews_muestra
 ```
 
-La consola web está en http://localhost:9011. Consulta
-[docs/almacenamiento-minio.md](docs/almacenamiento-minio.md) para la
-configuración, las decisiones técnicas y los resultados de validación.
+### Comprobar los archivos recuperados
+
+Lista los archivos descargados:
+
+```bash
+find data/recovered/reviews_muestra -maxdepth 2 -type f
+```
+
+Deberías encontrar `_resumen.json` y al menos un archivo Parquet.
+
+Comprueba que el Parquet se pueda leer:
+
+```bash
+python -c "import pandas as pd; df = pd.read_parquet('data/recovered/reviews_muestra/part-00000.parquet'); print(df.shape); print(df.head())"
+```
+
+El resultado muestra las dimensiones del conjunto recuperado y una vista previa de sus registros. Para la prueba documentada, se esperan 1000 filas y 4 columnas.
+
+La consola web de MinIO está disponible en http://localhost:9011.
+
+Consulta [docs/almacenamiento-minio.md](docs/almacenamiento-minio.md) para conocer las variables de configuración, las decisiones técnicas, las pruebas automatizadas y los resultados de validación.
+
+**Nota:** si ya tienes el artefacto procesado, puedes omitir los dos comandos de generación. Si repites la transferencia, utiliza un directorio de destino nuevo.
+
 
 ## Pruebas
 
