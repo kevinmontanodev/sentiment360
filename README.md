@@ -232,6 +232,25 @@ Para procesar el dataset Parquet en modo local con PySpark y verificar la consis
 python -m src.procesamiento.procesar_pyspark
 ```
 
+## Almacenamiento de artefactos con MinIO
+
+MinIO ofrece un almacenamiento de objetos local compatible con S3. Configura las
+variables `MINIO_*` y `S3_*` en `.env` según `.env.example` e inicia los servicios:
+
+```bash
+docker compose -f compose.yaml up -d
+```
+
+Sube el Parquet generado por el procesamiento, recupéralo y verifica que coincida:
+
+```bash
+python -m src.almacenamiento.transferir_artefacto --source data/processed/reviews_muestra --destination data/recovered/reviews_muestra --prefix reviews_muestra
+```
+
+La consola web está en http://localhost:9011. Consulta
+[docs/almacenamiento-minio.md](docs/almacenamiento-minio.md) para la
+configuración, las decisiones técnicas y los resultados de validación.
+
 ## Pruebas
 
 Ejecuta las pruebas automatizadas desde la raíz del proyecto:
