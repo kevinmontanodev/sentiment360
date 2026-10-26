@@ -242,10 +242,29 @@ pytest -v
 
 Las pruebas cubren la validación de reseñas, el repositorio MongoDB, el servicio de ingesta y el procesamiento con Dask hasta la lectura del Parquet. Se utiliza `mongomock` para simular operaciones de MongoDB en las pruebas unitarias.
 
-## Reproducibilidad
+## Uso de herramientas de inteligencia artificial
 
-El repositorio incluye la configuración de dependencias, la configuración de pruebas, un archivo de ejemplo de variables de entorno y la definición del servicio MongoDB mediante Docker Compose.
+Durante el desarrollo de Sentiment360 se utiliza **ChatGPT (OpenAI)** como herramienta de apoyo técnico y documental.
 
-El corpus completo, las credenciales locales, los entornos virtuales y los archivos generados no deben versionarse.
+Su utilización se limita a tareas como:
 
-Las instrucciones de procesamiento, entrenamiento, evaluación y uso de la API se ampliarán conforme se implementen y verifiquen esos componentes.
+- **Configuración y entorno:** orientación para estructurar archivos de configuración, como `compose.yaml`, y revisar la organización de las dependencias.
+- **Pruebas de software:** apoyo para proponer casos de prueba con `pytest`, identificar escenarios límite y revisar posibles errores.
+- **Documentación:** asistencia en la redacción y mejora del README, la documentación técnica y las explicaciones de las decisiones de diseño.
+- **Revisión técnica:** apoyo para analizar errores, evaluar alternativas de implementación y comprender la compatibilidad entre herramientas.
+
+Las sugerencias generadas por la herramienta son revisadas y verificadas por los integrantes del equipo antes de incorporarse al proyecto. El equipo mantiene la responsabilidad sobre el código, las pruebas, las decisiones técnicas y los resultados presentados.
+
+Cada integrante debe ser capaz de explicar, modificar y justificar las contribuciones de las que es responsable. La herramienta no sustituye la comprensión técnica, la validación experimental ni el criterio del equipo.
+
+
+## Organización del Equipo
+
+| Integrante | Roles | Responsabilidades Principales (Según Rúbrica) |
+| :--- | :--- | :--- |
+| **Edwin Rommel Alberto Hernández** | • Ingeniería MLOps<br>• Ingeniería de datos | • **MLOps:** API, Dockerfile, reproducibilidad del entorno y ejecución E2E.<br>• **Datos:** Ingesta con Dask/PySpark, almacenamiento en MongoDB/S3 simulado y calidad. |
+| **Jonathan Vladimir Montes Rodriguez** | • Ciencia de datos<br>• Narrativa de datos | • **Ciencia de Datos:** Exploración, baseline, modelos ML y DL, validación y análisis de errores.<br>• **Narrativa:** Gráficos, historia del proyecto y preparación de la exposición. |
+| **Kevin Antonio Montano Aquino** | • Coordinación del proyecto<br>• Ingeniería de datos<br>• Calidad y documentación | • **Coordinación:** Mantiene el rumbo y calendario; gestiona el tablero de tareas e integración de ramas.<br>• **Datos:** Ingesta con Dask/PySpark, almacenamiento en MongoDB/S3 simulado.<br>• **Calidad:** Pruebas, docstrings, README, registro de decisiones y revisión de PRs. |
+| **Douglas Orlando López Polanco** | • Ingeniería de datos<br>• Ciencia de datos | • **Datos:** Ingesta con Dask/PySpark, almacenamiento en MongoDB/S3 simulado y calidad.<br>• **Ciencia de Datos:** Exploración, baseline, modelos ML y DL, validación y análisis de errores. |
+
+> **Nota sobre responsabilidad individual:** El reparto de funciones es orientativo debido al tamaño del equipo. Todos los integrantes participamos activamente y conocemos la totalidad de los componentes del proyecto, respaldado por nuestro historial de contribuciones en Git.
