@@ -153,36 +153,46 @@ Instala las dependencias:
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
+### Configurar las variables de entorno
 
-Crea tu archivo local de configuración:
+Crea el archivo `.env` a partir de la plantilla:
 
 ```bash
 cp .env.example .env
 ```
 
-Edita `.env` y configura las credenciales locales de MongoDB. La URI debe coincidir con las credenciales configuradas para el contenedor.
+Edita `.env` y configura las variables necesarias para los servicios que utilizarás durante la ejecución del proyecto:
 
-## Iniciar MongoDB
+- **MongoDB:** configura las credenciales y la URI de conexión para que coincidan con las del contenedor.
+- **MinIO/S3:** configura las variables `MINIO_*` y `S3_*` siguiendo los valores y las indicaciones de `.env.example`.
 
-Desde la raíz del proyecto, ejecuta:
+Las variables deben corresponder con la configuración de los servicios definida en `compose.yaml`. Utiliza credenciales locales de desarrollo y **no compartas ni subas el archivo `.env` al repositorio**.
 
-```bash
-docker-compose -f compose.yaml up -d
-```
+Consulta las instrucciones específicas de cada componente para conocer cómo iniciar los servicios y ejecutar las pruebas.
 
-Comprueba el estado del contenedor:
+## Iniciar los servicios
 
-```bash
-docker-compose -f compose.yaml ps
-```
-
-Para detener el servicio:
+Desde la raíz del proyecto, inicia los servicios definidos en `compose.yaml`:
 
 ```bash
-docker-compose -f compose.yaml down
+docker compose -f compose.yaml up -d
 ```
 
-El volumen de Docker conserva los datos de MongoDB entre reinicios del contenedor.
+Este comando inicia los contenedores configurados para el proyecto, incluidos MongoDB y MinIO.
+
+Comprueba su estado:
+
+```bash
+docker compose -f compose.yaml ps
+```
+
+Para detener los servicios:
+
+```bash
+docker compose -f compose.yaml down
+```
+
+**Nota:** detener los contenedores no implica necesariamente eliminar los datos persistidos en sus volúmenes.
 
 ## Ingesta de reseñas
 
@@ -238,14 +248,12 @@ python -m src.procesamiento.procesar_pyspark
 
 Consulta la documentación de [Procesamiento con PySpark](docs/proceamiento-pyspark.md) para conocer el procedimiento, las transformaciones aplicadas y la comparación de resultados con Dask.
 
-
 ## Almacenamiento de artefactos con MinIO
 
-MinIO proporciona almacenamiento de objetos local compatible con la API de Amazon S3. Para iniciar el servicio, configura las variables `MINIO_*` y `S3_*` en `.env` tomando como referencia `.env.example` y ejecuta:
+MinIO proporciona almacenamiento de objetos local compatible con la API de Amazon S3. Una vez iniciados los servicios, puedes utilizarlo para almacenar y recuperar los artefactos generados durante el procesamiento.
 
-```bash
-docker compose -f compose.yaml up -d
-```
+Para conocer cómo generar, transferir y verificar los archivos Parquet, consulta la [documentación de almacenamiento con MinIO](docs/almacenamiento-minio.md).
+
 
 ### Generar y transferir el artefacto
 
