@@ -263,3 +263,6 @@ models/*
 .vscode/
 .idea/
 .DS_Store
+
+# Artefactos recuperados desde MinIO (US-05)
+data/recovered/

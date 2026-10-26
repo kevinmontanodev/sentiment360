@@ -28,6 +28,7 @@ uvicorn[standard]
 pytest
 httpx
 mongomock
+moto[s3]
 
 # Configuration
 python-dotenv
