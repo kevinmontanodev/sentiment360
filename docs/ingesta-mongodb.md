@@ -13,7 +13,8 @@ Los componentes principales son:
 | Componente | Responsabilidad |
 |---|---|
 | `src/config.py` | Lee y valida la configuración mediante variables de entorno. |
-| `src/ingesta/validador.py` | Comprueba los campos y tipos de cada reseña. |
+| `src/ingesta/esquemas.py` | Define el esquema Pydantic ReviewSchema para validar la estructura y los tipos de las reseñas. |
+| `src/ingesta/validador.py` | Adapta la validación mediante Pydantic y conserva la interfaz utilizada por el servicio de ingesta. |
 | `src/ingesta/servicio_ingesta.py` | Coordina la validación y la inserción por lotes. |
 | `src/almacenamiento/repositorio_mongodb.py` | Gestiona la persistencia, los índices y el conteo de documentos. |
 | `src/ingesta/cargar_dataset.py` | Ejecuta la ingesta desde Hugging Face. |
@@ -22,6 +23,10 @@ Los componentes principales son:
 | `src/ingesta/probar_ingesta_mongodb.py` | Ejecuta una prueba controlada de persistencia e idempotencia. |
 
 ## 3. Esquema de los documentos
+
+La estructura de las reseñas se define mediante el modelo ReviewSchema, implementado con Pydantic 2. Se utilizan tipos estrictos para evitar conversiones automáticas no deseadas, y se aplican restricciones sobre los campos obligatorios, los valores permitidos y la correspondencia entre label y label_text.
+
+La clase ReviewValidator utiliza este esquema y adapta los errores de validación para mantener la compatibilidad con ReviewIngestionService. Las reseñas que no cumplen el esquema se contabilizan como rechazadas y no llegan al repositorio.
 
 Cada reseña debe contener los siguientes campos:
 
@@ -104,6 +109,9 @@ pytest -v
 La suite incluye casos para:
 
 - Validación de campos obligatorios y valores permitidos.
+- Rechazo de tipos incorrectos, incluidos booleanos como etiquetas.
+- Validación de cadenas no vacías.
+- Correspondencia entre label y label_text.
 - Inserción de reseñas y manejo de lotes vacíos.
 - Detección de identificadores duplicados.
 - Conservación de documentos existentes.
