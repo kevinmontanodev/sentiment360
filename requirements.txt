@@ -17,6 +17,7 @@ pyarrow==26.0.0
 # Almacenamiento
 pymongo==4.19.0
 boto3==1.43.118
+pydantic==2.12.5
 
 # Machine Learning
 scikit-learn==1.9.1
