@@ -1,0 +1,121 @@
+{
+    "benchmark": "Pandas vs Dask",
+    "repetitions": 3,
+    "equivalent_results": true,
+    "pandas": {
+        "times_seconds": [
+            1.40169,
+            1.398224,
+            1.569344
+        ],
+        "median_seconds": 1.40169,
+        "peak_memory_mb": [
+            631.2,
+            616.07,
+            622.02
+        ],
+        "median_peak_memory_mb": 622.02,
+        "additional_memory_mb": [
+            372.24,
+            325.7,
+            330.92
+        ],
+        "median_additional_memory_mb": 330.92
+    },
+    "dask": {
+        "times_seconds": [
+            2.158424,
+            2.154679,
+            2.171031
+        ],
+        "median_seconds": 2.158424,
+        "peak_memory_mb": [
+            340.11,
+            354.36,
+            354.36
+        ],
+        "median_peak_memory_mb": 354.36,
+        "additional_memory_mb": [
+            44.0,
+            14.25,
+            0.0
+        ],
+        "median_additional_memory_mb": 14.25
+    },
+    "speedup": 0.6494,
+    "system": {
+        "platform": "Linux-6.14.0-37-generic-x86_64-with-glibc2.39",
+        "processor": "x86_64",
+        "physical_cores": 2,
+        "logical_cores": 4,
+        "total_ram_gb": 7.65,
+        "available_ram_gb": 2.5,
+        "dataset_size_mb": 20.56
+    },
+    "results": {
+        "pandas": [
+            {
+                "label": 0,
+                "total_reviews": 40000,
+                "avg_char_length": 152.883475,
+                "avg_word_count": 28.470575
+            },
+            {
+                "label": 1,
+                "total_reviews": 40000,
+                "avg_char_length": 168.43875,
+                "avg_word_count": 31.293075
+            },
+            {
+                "label": 2,
+                "total_reviews": 40000,
+                "avg_char_length": 155.3803,
+                "avg_word_count": 28.8229
+            },
+            {
+                "label": 3,
+                "total_reviews": 40000,
+                "avg_char_length": 142.3572,
+                "avg_word_count": 25.878525
+            },
+            {
+                "label": 4,
+                "total_reviews": 40000,
+                "avg_char_length": 137.454825,
+                "avg_word_count": 24.533275
+            }
+        ],
+        "dask": [
+            {
+                "label": 0,
+                "total_reviews": 40000,
+                "avg_char_length": 152.883475,
+                "avg_word_count": 28.470575
+            },
+            {
+                "label": 1,
+                "total_reviews": 40000,
+                "avg_char_length": 168.43875,
+                "avg_word_count": 31.293075
+            },
+            {
+                "label": 2,
+                "total_reviews": 40000,
+                "avg_char_length": 155.3803,
+                "avg_word_count": 28.8229
+            },
+            {
+                "label": 3,
+                "total_reviews": 40000,
+                "avg_char_length": 142.3572,
+                "avg_word_count": 25.878525
+            },
+            {
+                "label": 4,
+                "total_reviews": 40000,
+                "avg_char_length": 137.454825,
+                "avg_word_count": 24.533275
+            }
+        ]
+    }
+}
