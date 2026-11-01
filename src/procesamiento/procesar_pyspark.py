@@ -9,6 +9,7 @@ import dask
 import dask.dataframe as dd
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+from pyspark.sql.window import Window
 
 from src.procesamiento.limpiar_resenas import DTYPES
 
@@ -71,28 +72,70 @@ def process_with_pyspark(
             .orderBy("label")
         )
 
+        # Estadísticas globales
+        global_stats = df.agg(
+            F.count("*").alias("total_reviews")
+        )
+
+        # JOIN: incorpora el total general a cada etiqueta
+        df_distribution = df_aggregated.crossJoin(global_stats)
+
+        # Calcula el porcentaje de cada etiqueta
+        df_distribution = df_distribution.withColumn(
+            "percentage",
+            F.round(
+                F.col("count") / F.col("total_reviews") * 100,
+                2,
+            ),
+        )
+
+        # WINDOW: ranking de etiquetas según cantidad de reseñas
+        ranking_window = Window.orderBy(F.desc("count"))
+
+        df_distribution = (
+            df_distribution
+            .withColumn(
+                "ranking",
+                F.dense_rank().over(ranking_window),
+            )
+            .orderBy("label")
+        )
+
         # 3. Acciones: fuerzan la evaluación del plan lógico y físico en Spark
-        total_reviews = df.count()
-        rows = df_aggregated.collect()
+        distribution_rows = df_distribution.collect()
+
+        distribution_by_label = []
 
         labels_count = {str(label): 0 for label in range(5)}
         metrics_by_label = {}
+        total_reviews = 0
 
-        for row in rows:
+        for row in distribution_rows:
+            total_reviews = int(row["total_reviews"])
             label_key = str(row["label"])
             count_val = int(row["count"])
+
             labels_count[label_key] = count_val
+
             metrics_by_label[label_key] = {
                 "count": count_val,
                 "avg_char_length": float(row["avg_char_length"]),
                 "avg_word_count": float(row["avg_word_count"]),
             }
 
+            distribution_by_label.append({
+                "label": int(row["label"]),
+                "count": count_val,
+                "percentage": float(row["percentage"]),
+                "ranking": int(row["ranking"]),
+            })
+
         return {
             "engine": "pyspark",
             "total_reviews": int(total_reviews),
             "labels": labels_count,
             "metrics_by_label": metrics_by_label,
+            "distribution_by_label": distribution_by_label
         }
     finally:
         if own_session:
