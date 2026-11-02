@@ -335,6 +335,24 @@ Consulta [el protocolo, las métricas por clase y las limitaciones](docs/modelos
 y los [resultados completos](reports/ml/resultados.json). Los datos y el modelo
 serializado se conservan localmente fuera de Git.
 
+## Evaluación de Deep Learning
+
+Se implementó una arquitectura neuronal utilizando PyTorch para comparar su rendimiento contra los modelos clásicos.
+
+**Arquitectura de la Red Neuronal:**
+* **Representación:** Vocabulario de 15.000 tokens procesado mediante una capa de Embedding de 128 dimensiones.
+* **Procesamiento Secuencial:** Red Recurrente Bidireccional GRU (BiGRU) con 64 dimensiones ocultas. Esta capa procesa el texto en ambas direcciones para capturar el contexto de modificadores semánticos y negaciones.
+* **Regularización y Clasificación:** Capa Dropout (p=0.4) para evitar sobreajuste y capa Lineal de salida para clasificar en las 5 etiquetas.
+* **Control de Entrenamiento:** Optimizador Adam, función de pérdida `CrossEntropyLoss` y `EarlyStopping` (paciencia de 3 épocas) sobre la pérdida de validación.
+
+**Comparación de Resultados (Muestra de 10.000 reseñas de entrenamiento):**
+* **Regresión Logística (Clásico):** Accuracy 0.4914 | F1 Macro 0.4892
+* **BiGRU (Deep Learning):** Accuracy 0.4301 | F1 Macro 0.4040
+
+**Conclusión:**
+El modelo clásico superó a la red neuronal recurrente. En un conjunto de datos reducido a 10.000 observaciones, la elevada cantidad de parámetros de la arquitectura BiGRU dificulta su capacidad de generalización frente a nuevos datos. El Deep Learning requiere un volumen masivo de registros de entrenamiento para generar incrustaciones semánticas complejas que justifiquen su costo computacional y superen a los vectores dispersos basados en TF-IDF.
+
+
 ## Pruebas
 
 Ejecuta las pruebas automatizadas desde la raíz del proyecto:
