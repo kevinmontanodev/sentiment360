@@ -15,11 +15,11 @@ El trabajo se organiza mediante historias de usuario, estimaciones en Story Poin
 | US-03 | Procesar reseñas con Dask | Sprint 1 | 3 SP | Terminada |
 | US-04 | Procesar datos con PySpark | Sprint 1 | 3 SP | Terminada |
 | US-05 | Simular almacenamiento de objetos | Sprint 1 | 3 SP | Terminada |
-| US-06	| Entrenar y comparar modelos clásicos | Sprint 2 | 5 SP |	Pendiente |
-| US-07	| Entrenar y evaluar Deep Learning | Sprint 2 | 5 SP | Pendiente |
+| US-06	| Entrenar y comparar modelos clásicos | Sprint 2 | 5 SP |	Terminada |
+| US-07	| Entrenar y evaluar Deep Learning | Sprint 2 | 5 SP | Terminada |
 | US-08	| Optimizar umbral mediante matriz de costos |	Sprint 2 | Por definir | Pendiente |
-| US-09	| Documentar bitácora de desarrollo | Sprint 2 | Por definir | Pendiente |
-| US-10	| Validar propuesta mediante Design Thinking |	Sprint 2 | Por definir | Pendiente |
+| US-09	| Documentar bitácora de desarrollo | Sprint 2 | Por definir | Terminada |
+| US-10	| Validar propuesta mediante Design Thinking |	Sprint 2 | Por definir | Terminada |
 | US-11 | Evaluar viabilidad tecnológica y financiera |	Sprint 2 | Por definir | Pendiente |
 
 **Nota:** Las estimaciones corresponden a los puntos iniciales definidos para cada historia.
@@ -141,18 +141,18 @@ Como analista de datos, quiero evaluar diferentes familias de algoritmos clásic
 
 **Criterios de aceptación**
 
-- [ ] Implementar un modelo de referencia (*Dummy Classifier*) que permita establecer un rendimiento mínimo.
-- [ ] Evaluar al menos tres familias de algoritmos:
+- [x] Implementar un modelo de referencia (*Dummy Classifier*) que permita establecer un rendimiento mínimo.
+- [x] Evaluar al menos tres familias de algoritmos:
   - Modelos lineales: Regresión Logística.
   - Modelos basados en árboles: Random Forest.
   - Modelos de margen o distancia: SVM o k-NN.
-- [ ] Dividir los datos en conjuntos de entrenamiento y prueba, conservando la distribución de las cinco etiquetas mediante estratificación.
-- [ ] Incorporar el preprocesamiento del texto, incluyendo TF-IDF, dentro de pipelines para prevenir la fuga de información.
-- [ ] Aplicar validación cruzada y búsqueda de hiperparámetros mediante GridSearchCV o RandomizedSearchCV.
-- [ ] Evaluar los modelos utilizando accuracy, precisión, recall y F1-score.
-- [ ] Analizar el desempeño por clase mediante métricas y matriz de confusión.
-- [ ] Seleccionar el mejor modelo clásico según métricas justificadas para el problema.
-- [ ] Documentar los experimentos y presentar una tabla comparativa de resultados en el README.md.
+- [x] Dividir los datos en conjuntos de entrenamiento y prueba, conservando la distribución de las cinco etiquetas mediante estratificación.
+- [x] Incorporar el preprocesamiento del texto, incluyendo TF-IDF, dentro de pipelines para prevenir la fuga de información.
+- [x] Aplicar validación cruzada y búsqueda de hiperparámetros mediante GridSearchCV o RandomizedSearchCV.
+- [x] Evaluar los modelos utilizando accuracy, precisión, recall y F1-score.
+- [x] Analizar el desempeño por clase mediante métricas y matriz de confusión.
+- [x] Seleccionar el mejor modelo clásico según métricas justificadas para el problema.
+- [x] Documentar los experimentos y presentar una tabla comparativa de resultados en el README.md.
 
 **Consideraciones metodológicas**
 
@@ -160,7 +160,7 @@ La división estratificada será adecuada para este problema de clasificación d
 
 **Sprint:** Sprint 2 — Machine Learning y Deep Learning  
 **Estimación inicial:** 5 puntos  
-**Estado:** Pendiente
+**Estado:** Terminada
 
 ---
 
@@ -172,22 +172,22 @@ Como investigador, quiero evaluar una arquitectura neuronal para clasificación 
 
 **Criterios de aceptación**
 
-- [ ] Definir y justificar la arquitectura de la red neuronal seleccionada.
-- [ ] Implementar y entrenar un modelo de Deep Learning utilizando una representación adecuada del texto.
-- [ ] Mantener una separación rigurosa entre entrenamiento, validación y prueba.
-- [ ] Aplicar medidas de regularización cuando corresponda, como Dropout y Early Stopping.
-- [ ] Registrar las métricas de entrenamiento y validación durante las épocas.
-- [ ] Generar y analizar curvas de aprendizaje (*loss* y métricas de desempeño).
-- [ ] Evaluar el modelo con accuracy, precisión, recall y F1-score.
-- [ ] Analizar los errores mediante una matriz de confusión y métricas por clase.
-- [ ] Comparar los resultados del modelo neuronal con el mejor modelo clásico obtenido en la US-06.
-- [ ] Documentar la arquitectura, los experimentos y las conclusiones en el README.md.
+- [x] Definir y justificar la arquitectura de la red neuronal seleccionada.
+- [x] Implementar y entrenar un modelo de Deep Learning utilizando una representación adecuada del texto.
+- [x] Mantener una separación rigurosa entre entrenamiento, validación y prueba.
+- [x] Aplicar medidas de regularización cuando corresponda, como Dropout y Early Stopping.
+- [x] Registrar las métricas de entrenamiento y validación durante las épocas.
+- [x] Generar y analizar curvas de aprendizaje (*loss* y métricas de desempeño).
+- [x] Evaluar el modelo con accuracy, precisión, recall y F1-score.
+- [x] Analizar los errores mediante una matriz de confusión y métricas por clase.
+- [x] Comparar los resultados del modelo neuronal con el mejor modelo clásico obtenido en la US-06.
+- [x] Documentar la arquitectura, los experimentos y las conclusiones en el README.md.
 
 **Dependencia:** US-06, para disponer del mejor modelo clásico como referencia.
 
 **Sprint:** Sprint 2 — Machine Learning y Deep Learning  
 **Estimación inicial:** 5 puntos  
-**Estado:** Pendiente
+**Estado:** Terminada
 
 ---
 
@@ -224,15 +224,16 @@ Como equipo de desarrollo, queremos registrar los principales hallazgos, obstác
 
 **Criterios de aceptación**
 
-- [ ] Documentar los hallazgos relevantes de la exploración del dataset.
-- [ ] Registrar los principales obstáculos técnicos y sus soluciones.
-- [ ] Documentar los resultados y cuellos de botella identificados durante los experimentos de ML, DL y PySpark.
-- [ ] Justificar las decisiones de arquitectura relacionadas con Dask, MongoDB, MinIO y almacenamiento Parquet.
-- [ ] Registrar los cambios y decisiones importantes durante los sprints.
-- [ ] Consolidar la información en un documento de bitácora.
+- [x] Documentar los hallazgos relevantes de la exploración del dataset.
+- [x] Registrar los principales obstáculos técnicos y sus soluciones.
+- [x] Documentar los resultados y cuellos de botella identificados durante los experimentos de ML, DL y PySark.
+- [x] Justificar las decisiones de arquitectura relacionadas con Dask, MongoDB, MinIO y almacenamiento Parquet.
+- [x] Registrar los cambios y decisiones importantes durante los sprints.
+- [x] Consolidar la información en un documento de bitácora.
 
 **Sprint:** Sprint 2 — Machine Learning y evaluación del proyecto  
-**Estimación inicial:** Por definir
+**Estimación inicial:** 2 puntos
+**Estado:** Terminada
 
 ---
 
@@ -244,16 +245,17 @@ Como equipo de desarrollo, queremos aplicar las cinco fases de Design Thinking p
 
 **Criterios de aceptación**
 
-- [ ] Identificar y describir los usuarios potenciales de la plataforma.
-- [ ] Documentar las necesidades y dificultades identificadas durante la fase de empatía.
-- [ ] Definir el problema principal que busca resolver el proyecto.
-- [ ] Proponer funcionalidades y alternativas de solución.
-- [ ] Crear un prototipo que represente la propuesta de Sentiment360.
-- [ ] Obtener retroalimentación de usuarios potenciales sobre el prototipo.
-- [ ] Documentar los resultados de las cinco fases: Empatizar, Definir, Idear, Prototipar y Evaluar.
+- [x] Identificar y describir los usuarios potenciales de la plataforma.
+- [x] Documentar las necesidades y dificultades identificadas durante la fase de empatía.
+- [x] Definir el problema principal que busca resolver el proyecto.
+- [x] Proponer funcionalidades y alternativas de solución.
+- [x] Crear un prototipo que represente la propuesta de Sentiment360.
+- [x] Obtener retroalimentación de usuarios potenciales sobre el prototipo.
+- [x] Documentar los resultados de las cinco fases: Empatizar, Definir, Idear, Prototipar y Evaluar.
 
 **Sprint:** Sprint 2 — Machine Learning y evaluación del proyecto  
-**Estimación inicial:** Por definir
+**Estimación inicial:** 3 puntos
+**Estado:** Terminada
 
 ---
 
