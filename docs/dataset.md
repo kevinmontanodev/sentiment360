@@ -328,3 +328,12 @@ Las tres intersecciones tienen cero coincidencias exactas, por lo que el procedi
 ### Conclusión
 
 La evaluación complementaria conserva 200,000 registros de entrenamiento, 4,929 de validación y 4,934 de prueba. Se eliminaron 137 filas de evaluación por coincidencias exactas con particiones anteriores. Las cinco clases mantienen una distribución cercana al 20 % y no existen coincidencias exactas entre los tres conjuntos resultantes. Esta estrategia proporciona una evaluación más controlada frente a la fuga de datos, sin alterar las particiones originales del dataset.
+
+## 13. Evaluación de modelos clásicos
+
+La US-06 compara coincidencias después de NFC, casefold y normalización de
+espacios, igual que el preprocesador de TF-IDF. Su evaluación complementaria
+conserva 200.000 reseñas de train, 4.918 de validation y 4.931 de test. Esta
+comparación más amplia explica la diferencia respecto al filtrado literal
+documentado arriba. Consulta [modelos-clasicos.md](modelos-clasicos.md) para el
+protocolo, los hashes de los datos, las particiones utilizadas y las métricas.
