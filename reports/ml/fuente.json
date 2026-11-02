@@ -1,0 +1,67 @@
+{
+  "dataset": "SetFit/amazon_reviews_multi_es",
+  "revision": "16015418b488c9186fce74b058877ea939ca934d",
+  "files": {
+    "train": {
+      "url": "https://huggingface.co/datasets/SetFit/amazon_reviews_multi_es/resolve/16015418b488c9186fce74b058877ea939ca934d/train.jsonl",
+      "sha256": "f5ea8ef25c01e8eb51cc60d732cc9341e976c7910aab52c471fecab36465a8a1"
+    },
+    "validation": {
+      "url": "https://huggingface.co/datasets/SetFit/amazon_reviews_multi_es/resolve/16015418b488c9186fce74b058877ea939ca934d/validation.jsonl",
+      "sha256": "62fe25433b7a63a8952b63246b3c4db20e2902cca4c6e2d20310dda736b71dce"
+    },
+    "test": {
+      "url": "https://huggingface.co/datasets/SetFit/amazon_reviews_multi_es/resolve/16015418b488c9186fce74b058877ea939ca934d/test.jsonl",
+      "sha256": "aad4f1ce71f2235bf08ce1531ecc41cde7d6e55afa9b2aee83f90f3c2de0942a"
+    }
+  },
+  "cleaning": {
+    "train": {
+      "read": 200000,
+      "kept": 200000,
+      "rejected": 0,
+      "labels": {
+        "0": 40000,
+        "1": 40000,
+        "2": 40000,
+        "3": 40000,
+        "4": 40000
+      },
+      "parquet_verified": true
+    },
+    "validation": {
+      "read": 5000,
+      "kept": 5000,
+      "rejected": 0,
+      "labels": {
+        "0": 1000,
+        "1": 1000,
+        "2": 1000,
+        "3": 1000,
+        "4": 1000
+      },
+      "parquet_verified": true
+    },
+    "test": {
+      "read": 5000,
+      "kept": 5000,
+      "rejected": 0,
+      "labels": {
+        "0": 1000,
+        "1": 1000,
+        "2": 1000,
+        "3": 1000,
+        "4": 1000
+      },
+      "parquet_verified": true
+    }
+  },
+  "evaluation": {
+    "train": 200000,
+    "validation": 4918,
+    "test": 4931,
+    "removed_validation": 82,
+    "removed_test": 69,
+    "matching": "NFC, casefold y espacios normalizados; también se excluyen IDs compartidos"
+  }
+}

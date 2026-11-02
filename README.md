@@ -117,7 +117,7 @@ Los resultados cuantitativos se documentarán una vez ejecutados los experimento
 
 ## Estado del proyecto
 
-**En desarrollo — Sprint 1: ingesta y almacenamiento.**
+**En desarrollo — Sprint 2: modelos clásicos y evaluación.**
 
 El proyecto se implementará de forma incremental, con historias de usuario, pruebas y documentación versionada en el repositorio.
 
@@ -302,6 +302,34 @@ Consulta [docs/almacenamiento-minio.md](docs/almacenamiento-minio.md) para conoc
 
 **Nota:** si ya tienes el artefacto procesado, puedes omitir los dos comandos de generación. Si repites la transferencia, utiliza un directorio de destino nuevo.
 
+
+## Modelos clásicos de Machine Learning
+
+US-06 compara un Dummy Classifier, Regresión Logística, Random Forest y SVM lineal
+con TF-IDF dentro de pipelines y validación cruzada estratificada por grupos de
+texto. El modelo se selecciona por F1 macro de CV antes de evaluar el test.
+
+Resultados del 2 de noviembre de 2026: muestra estratificada de 10.000 reseñas
+para entrenamiento y 4.931 reseñas del test oficial filtrado, con las cinco clases.
+
+| Modelo | F1 macro CV | Accuracy test | Precisión macro | Recall macro | F1 macro test |
+|---|---:|---:|---:|---:|---:|
+| Dummy | 0,0666 | 0,2012 | 0,0402 | 0,2000 | 0,0670 |
+| Regresión Logística | **0,4601** | **0,4914** | **0,4875** | **0,4917** | **0,4892** |
+| Random Forest | 0,4185 | 0,4476 | 0,4335 | 0,4479 | 0,4350 |
+| SVM lineal | 0,4463 | 0,4794 | 0,4715 | 0,4798 | 0,4745 |
+
+Se seleccionó Regresión Logística con `C=2`. Esta ejecución utiliza una muestra
+de entrenamiento; no equivale a entrenar con las 200.000 reseñas completas.
+
+```bash
+python -m src.modelos.preparar_datos_ml --output data/processed/ml_evaluacion
+python -m src.modelos.comparar_ml --input data/processed/ml_evaluacion/train.parquet --test-input data/processed/ml_evaluacion/test.parquet --max-train 10000 --output models/ml_ejecucion
+```
+
+Consulta [el protocolo, las métricas por clase y las limitaciones](docs/modelos-clasicos.md)
+y los [resultados completos](reports/ml/resultados.json). Los datos y el modelo
+serializado se conservan localmente fuera de Git.
 
 ## Pruebas
 
