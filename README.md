@@ -19,6 +19,10 @@ El proyecto utiliza Scrum mediante la Opción B: Product Backlog.
 Consulta el [Product Backlog](./BACKLOG.md) para conocer las historias
 de usuario, estimaciones, planificación de sprints y Definition of Done.
 
+La [bitácora de desarrollo](docs/bitacora.md) consolida los hallazgos del dataset,
+las decisiones de arquitectura, los experimentos disponibles y las dependencias
+pendientes de cada sprint.
+
 ## Problema y oportunidad de negocio
 
 El análisis manual de reseñas puede consumir tiempo y dificultar la identificación de tendencias cuando aumenta el volumen de comentarios. Por otro lado, limitarse a promediar calificaciones no permite comprender completamente el contenido de las opiniones expresadas por los clientes.
