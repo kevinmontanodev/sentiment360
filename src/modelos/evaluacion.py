@@ -3,6 +3,7 @@
 from dataclasses import dataclass
 from collections.abc import Sequence
 import numpy as np
+import pandas as pd
 
 @dataclass(frozen=True)
 class CostScenario:
@@ -75,3 +76,28 @@ def evaluate_threshold(
         "precision": tp / (tp + fp) if tp + fp else 0.0,
         "total_cost": total_cost, "net_benefit": net_benefit,
     }
+
+
+def evaluate_thresholds(
+    y_true: Sequence[bool],
+    p_unfavorable: Sequence[float],
+    scenario: CostScenario,
+    thresholds: Sequence[float] | None = None,
+) -> pd.DataFrame:
+    """Evalúa los umbrales de 0.01 a 0.99 (o los indicados) y devuelve una fila por umbral"""
+    y_true = np.asarray(y_true, dtype=bool)
+    p_unfavorable = np.asarray(p_unfavorable, dtype=float)
+    if thresholds is None:
+        thresholds = np.round(np.arange(0.01, 1.0, 0.01), 2)
+    thresholds = np.asarray(thresholds, dtype=float)
+    if thresholds.size == 0 or thresholds.min() < 0.01 or thresholds.max() > 0.99:
+        raise ValueError("Los umbrales deben estar entre 0.01 y 0.99")
+    if len(y_true) != len(p_unfavorable):
+        raise ValueError("Las etiquetas y las probabilidades deben tener el mismo tamaño.")
+    rows = [evaluate_threshold(y_true, p_unfavorable, t, scenario) for t in thresholds]
+    return pd.DataFrame(rows)
+
+
+def best_threshold(results: pd.DataFrame) -> pd.Series:
+    """Fila con el mayor beneficio neto; ante un empate se elige el umbral más bajo"""
+    return results.loc[results["net_benefit"].idxmax()]
