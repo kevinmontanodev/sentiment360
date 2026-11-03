@@ -375,6 +375,48 @@ Se implementó una arquitectura neuronal utilizando PyTorch para comparar su ren
 El modelo clásico superó a la red neuronal recurrente. En un conjunto de datos reducido a 10.000 observaciones, la elevada cantidad de parámetros de la arquitectura BiGRU dificulta su capacidad de generalización frente a nuevos datos. El Deep Learning requiere un volumen masivo de registros de entrenamiento para generar incrustaciones semánticas complejas que justifiquen su costo computacional y superen a los vectores dispersos basados en TF-IDF.
 
 
+## Umbral de decisión mediante matriz de costos
+
+Las probabilidades de la Regresión Logística (US-06) se convierten en una decisión
+de negocio: una reseña se marca para revisión humana si
+`P(1 estrella) + P(2 estrellas)` alcanza un umbral. El umbral se elige en validation
+maximizando el beneficio neto simulado de un equipo de experiencia del cliente y se
+compara en test con el umbral convencional de 0.5.
+
+```bash
+python -m src.modelos.evaluar_umbrales
+```
+
+**Supuestos económicos (USD):** agente con salario de $750 mensuales, 25.9 % de
+costo patronal, 44 horas semanales y 30 % de shrinkage ($0.118 por minuto
+productivo); 5 minutos de revisión y 10 de contacto; cliente con valor anual de
+$100 y abandono de 35 % sin contacto y 25 % con contacto.
+
+| Resultado | Costo |
+|---|---:|
+| Verdadero positivo | $26.77 |
+| Falso positivo | $0.59 |
+| Falso negativo | $35.00 |
+| Verdadero negativo | $0.00 |
+
+**Resultados en test (4,931 reseñas):**
+
+| Umbral | Reseñas marcadas | VP | FP | FN | Beneficio neto |
+|---|---:|---:|---:|---:|---:|
+| **0.15 (óptimo, elegido en validation)** | 3,628 | 1,948 | 1,680 | 35 | **$15,044.10** |
+| 0.50 (convencional) | 1,755 | 1,408 | 347 | 575 | $11,385.09 |
+
+**Justificación:** el umbral de 0.15 genera $3,659 más (+32 %) que el de 0.5, porque
+detectar un cliente insatisfecho ahorra unas 14 veces más de lo que cuesta una falsa
+alarma. El resultado se mantiene con valores del cliente de $50, $100 y $200. La
+curva es plana cerca del óptimo: si el equipo tiene capacidad limitada, un umbral de
+0.25 reduce el trabajo un 17 % y solo pierde un 2.2 % del beneficio.
+
+Consulta [docs/umbral-matriz-costos.md](docs/umbral-matriz-costos.md) para la
+estrategia de decisión, la justificación de cada supuesto, la sensibilidad, la
+capacidad del equipo y las limitaciones.
+
+
 ## Pruebas
 
 Ejecuta las pruebas automatizadas desde la raíz del proyecto:
