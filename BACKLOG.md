@@ -17,10 +17,10 @@ El trabajo se organiza mediante historias de usuario, estimaciones en Story Poin
 | US-05 | Simular almacenamiento de objetos | Sprint 1 | 3 SP | Terminada |
 | US-06	| Entrenar y comparar modelos clásicos | Sprint 2 | 5 SP |	Terminada |
 | US-07	| Entrenar y evaluar Deep Learning | Sprint 2 | 5 SP | Terminada |
-| US-08	| Optimizar umbral mediante matriz de costos |	Sprint 2 | Por definir | Pendiente |
+| US-08	| Optimizar umbral mediante matriz de costos |	Sprint 2 | Por definir | Terminada |
 | US-09	| Documentar bitácora de desarrollo | Sprint 2 | Por definir | Terminada |
 | US-10	| Validar propuesta mediante Design Thinking |	Sprint 2 | Por definir | Terminada |
-| US-11 | Evaluar viabilidad tecnológica y financiera |	Sprint 2 | Por definir | Pendiente |
+| US-11 | Evaluar viabilidad tecnológica y financiera |	Sprint 2 | Por definir | Terminada |
 
 **Nota:** Las estimaciones corresponden a los puntos iniciales definidos para cada historia.
 
@@ -199,21 +199,21 @@ Como analista de experiencia del cliente, quiero evaluar diferentes umbrales de 
 
 **Criterios de aceptación**
 
-- [ ] Definir una estrategia de decisión de negocio a partir de las cinco categorías de sentimiento.
-- [ ] Establecer una matriz de costos y beneficios que contemple verdaderos positivos, falsos positivos y falsos negativos.
-- [ ] Documentar los valores monetarios o unidades de costo utilizados y justificar sus supuestos mediante un escenario de simulación.
-- [ ] Implementar en `src/modelos/evaluacion.py` una función para evaluar umbrales de decisión entre 0.01 y 0.99.
-- [ ] Calcular el beneficio o costo neto simulado para cada umbral.
-- [ ] Identificar el umbral que maximiza el beneficio neto.
-- [ ] Comparar el resultado obtenido con el umbral convencional de 0.5.
-- [ ] Generar una curva de beneficio neto en función del umbral de decisión.
-- [ ] Documentar los resultados, los supuestos económicos y la justificación del umbral seleccionado en el README.md.
+- [x] Definir una estrategia de decisión de negocio a partir de las cinco categorías de sentimiento.
+- [x] Establecer una matriz de costos y beneficios que contemple verdaderos positivos, falsos positivos y falsos negativos.
+- [x] Documentar los valores monetarios o unidades de costo utilizados y justificar sus supuestos mediante un escenario de simulación.
+- [x] Implementar en `src/modelos/evaluacion.py` una función para evaluar umbrales de decisión entre 0.01 y 0.99.
+- [x] Calcular el beneficio o costo neto simulado para cada umbral.
+- [x] Identificar el umbral que maximiza el beneficio neto.
+- [x] Comparar el resultado obtenido con el umbral convencional de 0.5.
+- [x] Generar una curva de beneficio neto en función del umbral de decisión.
+- [x] Documentar los resultados, los supuestos económicos y la justificación del umbral seleccionado en el README.md.
 
 **Dependencia:** US-06 y US-07, para disponer de modelos evaluados y probabilidades de predicción.
 
 **Sprint:** Sprint 2 — Machine Learning y Deep Learning  
 **Estimación inicial:** Por definir  
-**Estado:** Pendiente
+**Estado:** Terminada
 
 ---
 ## US-09: Documentar la bitácora de desarrollo
@@ -267,17 +267,18 @@ Como responsable de evaluar la propuesta, quiero analizar la viabilidad técnica
 
 **Criterios de aceptación**
 
-- [ ] Documentar los recursos tecnológicos necesarios para implementar la solución.
-- [ ] Estimar los costos de infraestructura local y servicios en la nube.
-- [ ] Definir los supuestos económicos utilizados en la evaluación.
-- [ ] Elaborar un flujo de caja simulado a 12 meses y 24 meses.
-- [ ] Estimar los beneficios económicos potenciales de la solución.
-- [ ] Calcular el ROI bajo escenarios financieros justificados.
-- [ ] Analizar la viabilidad técnica, económica y financiera.
-- [ ] Documentar los resultados y las limitaciones de la simulación.
+- [x] Documentar los recursos tecnológicos necesarios para implementar la solución.
+- [x] Estimar los costos de infraestructura local y servicios en la nube.
+- [x] Definir los supuestos económicos utilizados en la evaluación.
+- [x] Elaborar un flujo de caja simulado a 12 meses y 24 meses.
+- [x] Estimar los beneficios económicos potenciales de la solución.
+- [x] Calcular el ROI bajo escenarios financieros justificados.
+- [x] Analizar la viabilidad técnica, económica y financiera.
+- [x] Documentar los resultados y las limitaciones de la simulación.
 
 **Sprint:** Sprint 2 — Machine Learning y evaluación del proyecto  
 **Estimación inicial:** Por definir
+**Estado:** Terminada
 
 ---
 
@@ -294,13 +295,13 @@ Como responsable de evaluar la propuesta, quiero analizar la viabilidad técnica
 
 Una historia de usuario se considerará terminada cuando cumpla las siguientes condiciones, según corresponda a su naturaleza:
 
-- [ ] Se han implementado las actividades y entregables definidos en sus criterios de aceptación.
-- [ ] Se han realizado las pruebas o verificaciones necesarias y los resultados son satisfactorios.
-- [ ] El código cumple con las convenciones y la estructura establecidas en el proyecto.
-- [ ] Se ha actualizado la documentación relacionada con los cambios realizados.
-- [ ] Los cambios han sido revisados e integrados en la rama principal del repositorio.
-- [ ] No existen errores conocidos que impidan cumplir el objetivo de la historia.
-- [ ] Existe evidencia verificable del resultado obtenido.
+- [x] Se han implementado las actividades y entregables definidos en sus criterios de aceptación.
+- [x] Se han realizado las pruebas o verificaciones necesarias y los resultados son satisfactorios.
+- [x] El código cumple con las convenciones y la estructura establecidas en el proyecto.
+- [x] Se ha actualizado la documentación relacionada con los cambios realizados.
+- [x] Los cambios han sido revisados e integrados en la rama principal del repositorio.
+- [x] No existen errores conocidos que impidan cumplir el objetivo de la historia.
+- [x] Existe evidencia verificable del resultado obtenido.
 
 La historia podrá marcarse como terminada en el tablero cuando se hayan satisfecho sus criterios de aceptación y esta Definition of Done.
 
