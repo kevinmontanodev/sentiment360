@@ -1,6 +1,8 @@
 """Evaluacion de umbrales de decision mediante una matriz de costos"""
 
 from dataclasses import dataclass
+from collections.abc import Sequence
+import numpy as np
 
 @dataclass(frozen=True)
 class CostScenario:
@@ -39,3 +41,37 @@ class CostScenario:
     def fn_cost(self) -> float:
         """Falso negativo: nadie contacta al cliente insatisfecho"""
         return self.churn_without_contact * self.customer_value
+    
+
+UNFAVORABLE_LABELS = (0, 1)
+
+
+def unfavorable_probability(probabilities: np.ndarray, classes: Sequence[int]) -> np.ndarray:
+    """Suma la probabilidad de 1 y 2 estrellas (etiquetas 0 y 1)"""
+    columns = [list(classes).index(label) for label in UNFAVORABLE_LABELS]
+    return np.asarray(probabilities)[:, columns].sum(axis=1)
+
+
+def is_unfavorable(labels: Sequence[int]) -> np.ndarray:
+    """Convierte las 5 etiquetas en la decision del negocio: desfavorable o no"""
+    return np.isin(np.asarray(labels), UNFAVORABLE_LABELS)
+
+
+def evaluate_threshold(
+        y_true: np.ndarray, p_unfavorable: np.ndarray, threshold: float, scenario: CostScenario
+) -> dict:
+    """Cuenta VP, FP, FN y VN para un umbral y calcula el beneficio simulado"""
+    flagged = p_unfavorable >= threshold
+    tp = int(np.sum(flagged & y_true))
+    fp = int(np.sum(flagged & ~y_true))
+    fn = int(np.sum(~flagged & y_true))
+    tn = int(np.sum(~flagged & ~y_true))
+    total_cost = tp * scenario.tp_cost + fp * scenario.fp_cost + fn * scenario.fn_cost
+    # Beneficio frente a no revisar ninguna reseña: cada VP evita un FN y cada FP cuesta tiempo
+    net_benefit = tp * (scenario.fn_cost - scenario.tp_cost) - fp * scenario.fp_cost
+    return {
+        "threshold": round(float(threshold), 2), "tp": tp, "fp": fp, "fn": fn, "tn": tn,
+        "flagged": tp + fp, "recall": tp / (tp + fn) if tp + fn else 0.0,
+        "precision": tp / (tp + fp) if tp + fp else 0.0,
+        "total_cost": total_cost, "net_benefit": net_benefit,
+    }
