@@ -172,15 +172,15 @@ Por ello, se presenta un escenario ilustrativo para identificar las variables qu
 
 Bajo estos supuestos, el tiempo potencialmente liberado sería:
 
-\[
+$$
 H=\frac{10,000(30-10)}{3600}=55.56\text{ horas/mes}
-\]
+$$
 
 El valor económico teórico de ese tiempo sería:
 
-\[
-V=55.56\times5=\$277.78\text{/mes}
-\]
+$$
+V = 55.56 \times 5 = 277.78\ \text{USD/mes}
+$$
 
 Este valor representa únicamente una estimación del tiempo potencialmente liberado, no un ahorro monetario comprobado.
 
@@ -203,9 +203,9 @@ Estos valores son parámetros ilustrativos del ejercicio académico y no corresp
 
 El retorno de inversión se calcula mediante:
 
-\[
-ROI=\frac{Beneficios\ monetarios-Costos\ totales}{Costos\ totales}\times100
-\]
+$$
+ROI = \frac{\text{Beneficios monetarios} - \text{Costos totales}}{\text{Costos totales}} \times 100
+$$
 
 Sin embargo, para Sentiment360 no se dispone de beneficios monetarios efectivamente comprobados.
 
