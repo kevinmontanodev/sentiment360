@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from collections.abc import Sequence
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
 @dataclass(frozen=True)
 class CostScenario:
@@ -84,7 +85,7 @@ def evaluate_thresholds(
     scenario: CostScenario,
     thresholds: Sequence[float] | None = None,
 ) -> pd.DataFrame:
-    """Evalúa los umbrales de 0.01 a 0.99 (o los indicados) y devuelve una fila por umbral"""
+    """Evalua los umbrales de 0.01 a 0.99 (o los indicados) y devuelve una fila por umbral"""
     y_true = np.asarray(y_true, dtype=bool)
     p_unfavorable = np.asarray(p_unfavorable, dtype=float)
     if thresholds is None:
@@ -93,11 +94,34 @@ def evaluate_thresholds(
     if thresholds.size == 0 or thresholds.min() < 0.01 or thresholds.max() > 0.99:
         raise ValueError("Los umbrales deben estar entre 0.01 y 0.99")
     if len(y_true) != len(p_unfavorable):
-        raise ValueError("Las etiquetas y las probabilidades deben tener el mismo tamaño.")
+        raise ValueError("Las etiquetas y las probabilidades deben tener el mismo tamaño")
     rows = [evaluate_threshold(y_true, p_unfavorable, t, scenario) for t in thresholds]
     return pd.DataFrame(rows)
 
 
 def best_threshold(results: pd.DataFrame) -> pd.Series:
-    """Fila con el mayor beneficio neto; ante un empate se elige el umbral más bajo"""
+    """Fila con el mayor beneficio neto; ante un empate se elige el umbral mas bajo"""
     return results.loc[results["net_benefit"].idxmax()]
+
+
+def plot_net_benefit(results: pd.DataFrame, best: float, output_path: Path) -> None:
+    """Dibuja la curva de beneficio neto y marca el umbral optimo y el de 0.5"""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    ax.plot(results["threshold"], results["net_benefit"], color="#1f77b4", linewidth=2)
+    ax.axvline(best, color="#2ca02c", linestyle="--", label=f"Optimo ({best:.2f})")
+    ax.axvline(0.5, color="#7f7f7f", linestyle=":", label="Convencional (0.50)")
+    ax.axhline(0, color="black", linewidth=0.8)
+    ax.set_xlabel("Umbral de decision para P(desfavorable)")
+    ax.set_ylabel("Beneficio neto simulado (USD)")
+    ax.set_title("Beneficio neto segun el umbral (validacion)")
+    ax.legend()
+    ax.grid(alpha=0.3)
+    fig.tight_layout()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=150)
+    plt.close(fig)
