@@ -23,6 +23,28 @@ La [bitácora de desarrollo](docs/bitacora.md) consolida los hallazgos del datas
 las decisiones de arquitectura, los experimentos disponibles y las dependencias
 pendientes de cada sprint.
 
+## Diseño y evaluación del proyecto
+
+Sentiment360 incorpora actividades de diseño centrado en las necesidades de los usuarios y evaluación de viabilidad para orientar el desarrollo de la solución.
+
+### Design Thinking
+
+Se aplicó la metodología Design Thinking de Hasso Plattner para identificar necesidades, proponer funcionalidades y construir un prototipo conceptual de la plataforma.
+
+- [Resultados de la investigación y empatía](docs/design-thinking/resultados.md)
+- [Ideación y definición de funcionalidades](docs/design-thinking/ideacion.md)
+- [Prototipo conceptual y contrato de API](docs/design-thinking/prototipo.md)
+- [Evaluación heurística del prototipo](docs/design-thinking/evaluacion.md)
+- [Prototipo interactivo en Google Stitch](https://stitch.withgoogle.com/projects/771961583944282989)
+
+### Evaluación de viabilidad
+
+Se documentó una evaluación tecnológica, económica y financiera para analizar la factibilidad del proyecto y sus posibilidades de aplicación empresarial.
+
+- [Evaluación de viabilidad tecnológica, económica y financiera](docs/evaluacion-viabilidad.md)
+
+La evaluación distingue los resultados experimentales obtenidos durante el desarrollo de las estimaciones económicas hipotéticas, sin atribuir retornos financieros no demostrados.
+
 ## Problema y oportunidad de negocio
 
 El análisis manual de reseñas puede consumir tiempo y dificultar la identificación de tendencias cuando aumenta el volumen de comentarios. Por otro lado, limitarse a promediar calificaciones no permite comprender completamente el contenido de las opiniones expresadas por los clientes.
