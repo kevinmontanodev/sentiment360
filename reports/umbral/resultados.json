@@ -1,0 +1,69 @@
+{
+  "decision_rule": "desfavorable = etiquetas 0 y 1 (1 y 2 estrellas)",
+  "scenario": {
+    "monthly_salary": 750.0,
+    "employer_cost_rate": 0.259,
+    "weekly_hours": 44.0,
+    "shrinkage": 0.3,
+    "review_minutes": 5.0,
+    "contact_minutes": 10.0,
+    "customer_value": 100.0,
+    "churn_without_contact": 0.35,
+    "churn_with_contact": 0.25,
+    "cost_per_minute": 0.11791333666333667,
+    "tp_cost": 26.76870004995005,
+    "fp_cost": 0.5895666833166834,
+    "fn_cost": 35.0
+  },
+  "validation_rows": 4918,
+  "test_rows": 4931,
+  "unfavorable_share_test": 0.4021496653822754,
+  "best_threshold_validation": 0.15,
+  "test": {
+    "chosen": {
+      "threshold": 0.15,
+      "tp": 1948,
+      "fp": 1680,
+      "fn": 35,
+      "tn": 1268,
+      "flagged": 3628,
+      "recall": 0.9823499747856783,
+      "precision": 0.5369349503858876,
+      "total_cost": 54360.89972527472,
+      "net_benefit": 15044.100274725279
+    },
+    "conventional": {
+      "threshold": 0.5,
+      "tp": 1408,
+      "fp": 347,
+      "fn": 575,
+      "tn": 2601,
+      "flagged": 1755,
+      "recall": 0.7100353000504287,
+      "precision": 0.8022792022792022,
+      "total_cost": 58019.909309440554,
+      "net_benefit": 11385.090690559442
+    },
+    "gain_vs_conventional": 3659.0095841658367
+  },
+  "sensitivity": [
+    {
+      "customer_value": 50.0,
+      "best_threshold": 0.24,
+      "net_benefit_test": 5367.0804195804185,
+      "net_benefit_test_at_0_5": 4345.09069055944
+    },
+    {
+      "customer_value": 100.0,
+      "best_threshold": 0.15,
+      "net_benefit_test": 15044.100274725279,
+      "net_benefit_test_at_0_5": 11385.090690559442
+    },
+    {
+      "customer_value": 200.0,
+      "best_threshold": 0.11,
+      "net_benefit_test": 34735.39366883117,
+      "net_benefit_test_at_0_5": 25465.090690559442
+    }
+  ]
+}
