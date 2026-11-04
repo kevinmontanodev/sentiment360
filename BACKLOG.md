@@ -284,12 +284,10 @@ Como responsable de evaluar la propuesta, quiero analizar la viabilidad técnica
 
 # 4. Planificación de sprints
 
-| Sprint | Nombre | Objetivo | Estado |
-|---|---|---|---|
-| Sprint 1 | Ingesta y almacenamiento | Documentación del dataset, MongoDB, Dask, PySpark y almacenamiento compatible con S3 | Completado |
-| Sprint 2 | Machine Learning y Deep Learning | Baseline, modelos clásicos y experimentación con redes neuronales | Pendiente |
-
-*Las fechas de inicio y finalización de cada sprint se incorporarán al completar la planificación.*
+| Sprint | Nombre | Objetivo | Inicio | Finalización | Estado |
+|---|---|---|---|---|---|
+| Sprint 1 | Ingesta y almacenamiento | Documentación del dataset, MongoDB, Dask, PySpark y almacenamiento compatible con S3 | 22/10/2026 | 26/10/2026 | Completado |
+| Sprint 2 | Machine Learning y Deep Learning | Baseline, modelos clásicos, experimentación con redes neuronales, Design Thinking y evaluación de viabilidad | 30/10/2026 | 03/11/2026 | Completado |
 
 # 5. Definition of Done (DoD)
 
